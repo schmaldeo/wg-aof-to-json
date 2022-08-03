@@ -6,8 +6,8 @@ const require = createRequire(import.meta.url);
 const fileName = process.env.clans_banlist_file_name;
 
 // FILL OUT WITH FILENAMES
-const dataBeforeBans = require('./clans.json');
-const dataAfterBans = require('./clanafterbans.json');
+const dataBeforeBans = require('.');
+const dataAfterBans = require('.');
 
 // initialise arrays
 const data1 = [];
