@@ -1,18 +1,19 @@
 import fs from 'fs';
 import 'dotenv/config';
 import { createRequire } from 'module';
-
 const require = createRequire(import.meta.url);
 
 const fileName = process.env.players_banlist_file_name;
 
 // FILL OUT WITH FILENAMES
-const dataBeforeBans = require('.');
-const dataAfterBans = require('.');
+const dataBeforeBans = require('./playersbeforebans.json');
+const dataAfterBans = require('./playersafterbans.json');
 
+// initialise arrays
 const data1 = [];
 const data2 = [];
 
+// push all the players to single array, as by default each page is a different object
 for (const page of dataBeforeBans) {
   for (const player of page) {
     data1.push(player);
@@ -24,6 +25,8 @@ for (const page of dataAfterBans) {
   }
 }
 
+// find which entries exist in the first file but dont in the second one based on account_id (so if someone changes nickname after the campaign, but before the bans are given out, they will still be included in the banlist) basically giving the information of who got banned
 const bans = data1.filter((e1) => !data2.some((e2) => e1.account_id === e2.account_id));
 
+// make a JSON string the results and write them down to a file
 fs.writeFile(`./${fileName}.json`, JSON.stringify(bans), (err) => { if (err) throw err; });
