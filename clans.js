@@ -2,10 +2,11 @@ import fs from 'fs';
 import fetch from 'node-fetch';
 import 'dotenv/config';
 
-const appId = process.env.app_id;
-const eventId = process.env.event_id;
-const frontId = process.env.front_id;
-const fileName = process.env.clan_file_name;
+if (!process.env.APP_ID || !process.env.EVENT_ID || !process.env.FRONT_ID) throw new Error("One or more required parameters not specified in .env");
+const appId = process.env.APP_ID;
+const eventId = process.env.EVENT_ID;
+const frontId = process.env.FRONT_ID;
+const fileName = process.env.CLAN_OUTPUT_FILENAME || "clansOutput";
 
 // function fetchUntilUndef is basically a loop that fetches data from each page until API doesnt return valid data (page doesnt exist)
 

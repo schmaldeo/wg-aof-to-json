@@ -5,10 +5,11 @@ import 'dotenv/config';
 
 // wrapping the code in an async function
 const fetchPlayers = async () => {
-  const appId = process.env.app_id;
-  const eventId = process.env.event_id;
-  const frontId = process.env.front_id;
-  const fileName = process.env.player_file_name;
+  if (!process.env.APP_ID || !process.env.EVENT_ID || !process.env.FRONT_ID) throw new Error("One or more required parameters not specified in .env")
+  const appId = process.env.APP_ID;
+  const eventId = process.env.EVENT_ID;
+  const frontId = process.env.FRONT_ID;
+  const fileName = process.env.PLAYERS_OUTPUT_FILENAME || "playersOutput";
 
   // the fastest way to fetch the data from API is to use Promise.all, however Wargaming API will not let you do it because of DDOS protection, therefore you need to limit the amount of requests for the API not to return corrupted data
   const limit = pLimit(10);

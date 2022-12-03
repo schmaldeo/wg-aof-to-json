@@ -3,11 +3,11 @@ import 'dotenv/config';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-const fileName = process.env.clans_banlist_file_name;
+const fileName = process.env.CLANS_BANLIST_OUTPUT_FILENAME || "clansBanlist";
 
-// FILL OUT WITH FILENAMES
-const dataBeforeBans = require('.');
-const dataAfterBans = require('.');
+if (!process.env.PATH_TO_CLANS_FOR_BANLIST_BEFORE_BANS || !process.env.PATH_TO_CLANS_FOR_BANLIST_AFTER_BANS) throw new Error("One or both input paths not specified");
+const dataBeforeBans = require(process.env.PATH_TO_CLANS_FOR_BANLIST_BEFORE_BANS);
+const dataAfterBans = require(process.env.PATH_TO_CLANS_FOR_BANLIST_AFTER_BANS);
 
 // initialise arrays
 const data1 = [];
