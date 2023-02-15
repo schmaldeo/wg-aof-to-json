@@ -104,18 +104,6 @@ const fetchPlayers = async () => {
     pUrls.push(`https://api.worldoftanks.eu/wot/account/info/?application_id=${appId}&account_id=${iterationOfPIDs}&fields=nickname`);
     cUrls.push(`https://api.worldoftanks.eu/wot/clans/info/?application_id=${appId}&fields=tag%2C+name&clan_id=${iterationOfCIDs}`);
   });
-  // for (const page in data) {
-  //   const iterationOfPIDs = [];
-  //   const iterationOfCIDs = [];
-  //   for (const player of page) {
-  //     iterationOfPIDs.push(player.account_id);
-  //     if (iterationOfCIDs.indexOf(player.clan_id) === -1 && player.clan_id) {
-  //       iterationOfCIDs.push(player.clan_id);
-  //     }
-  //   }
-  //   pUrls.push(`https://api.worldoftanks.eu/wot/account/info/?application_id=${appId}&account_id=${iterationOfPIDs}&fields=nickname`);
-  //   cUrls.push(`https://api.worldoftanks.eu/wot/clans/info/?application_id=${appId}&fields=tag%2C+name&clan_id=${iterationOfCIDs}`);
-  // }
 
   // fetching nicknames and clans
   const initPlayersData = pUrls.map((e) => limit(() => fetch(e).then((r) => r.json())));
@@ -123,33 +111,6 @@ const fetchPlayers = async () => {
 
   const playersData = await Promise.all(initPlayersData) as PlayerApiResponse[];
   const clansData = await Promise.all(initClansData) as ClanApiResponse[];
-
-  // loop through data array
-  // for (const page of data) {
-  //   // loop through each page of data
-  //   for (const player of page) {
-  //     // check for corrupted data
-  //     if (player.account_id) {
-  //       // convert account id to string (int by default), then add a nickname to that account's object
-  //       const accId = player.account_id.toString();
-  //       for (const e of playersData) {
-  //         if (e.data[accId]) {
-  //           player.nickname = e.data[accId].nickname;
-  //         }
-  //       }
-  //     }
-  //     if (player.clan_id) {
-  //       // convert clan id to string (int by default), then add clan name and tag to that account's object
-  //       const clanId = player.clan_id.toString();
-  //       for (const e of clansData) {
-  //         if (e.data[clanId]) {
-  //           player.clanname = e.data[clanId].name;
-  //           player.tag = e.data[clanId].tag;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   data.forEach((page) => {
     page.forEach((player) => {

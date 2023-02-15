@@ -98,32 +98,6 @@ var fetchPlayers = function () { return __awaiter(void 0, void 0, void 0, functi
                 return [4 /*yield*/, Promise.all(initClansData)];
             case 4:
                 clansData = _a.sent();
-                // loop through data array
-                // for (const page of data) {
-                //   // loop through each page of data
-                //   for (const player of page) {
-                //     // check for corrupted data
-                //     if (player.account_id) {
-                //       // convert account id to string (int by default), then add a nickname to that account's object
-                //       const accId = player.account_id.toString();
-                //       for (const e of playersData) {
-                //         if (e.data[accId]) {
-                //           player.nickname = e.data[accId].nickname;
-                //         }
-                //       }
-                //     }
-                //     if (player.clan_id) {
-                //       // convert clan id to string (int by default), then add clan name and tag to that account's object
-                //       const clanId = player.clan_id.toString();
-                //       for (const e of clansData) {
-                //         if (e.data[clanId]) {
-                //           player.clanname = e.data[clanId].name;
-                //           player.tag = e.data[clanId].tag;
-                //         }
-                //       }
-                //     }
-                //   }
-                // }
                 data.forEach(function (page) {
                     page.forEach(function (player) {
                         if (player.account_id) {
