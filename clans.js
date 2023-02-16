@@ -1,6 +1,6 @@
-import fs from 'fs';
-import fetch from 'node-fetch';
-import 'dotenv/config';
+import fs from "fs";
+import fetch from "node-fetch";
+import "dotenv/config";
 
 if (!process.env.APP_ID || !process.env.EVENT_ID || !process.env.FRONT_ID) throw new Error("One or more required parameters not specified in .env");
 const appId = process.env.APP_ID;
@@ -17,7 +17,7 @@ const fetchData = [];
 // wrap the code in an async function
 const fetchUntilUndef = async () => {
   // fetch data
-  const res = await fetch(`https://api.worldoftanks.eu/wot/globalmap/eventrating/?application_id=${appId}&event_id=${eventId}&front_id=${frontId}&limit=100&page_no=${i}&fields=rank%2C+name%2C+tag%2C+fame_points_to_improve_award%2C+task_fame_points%2C+total_fame_points%2C+battle_fame_points%2C+clan_id`).then(x => x.json());
+  const res = await fetch(`https://api.worldoftanks.eu/wot/globalmap/eventrating/?application_id=${appId}&event_id=${eventId}&front_id=${frontId}&limit=100&page_no=${i}&fields=rank%2C+name%2C+tag%2C+fame_points_to_improve_award%2C+task_fame_points%2C+total_fame_points%2C+battle_fame_points%2C+clan_id`).then((x) => x.json());
   // check if data in this iteration are valid, if so - push them to the fetchData array, if they arent, make a JSON string of the fetchData array and write it to a file
   if (res.data.length !== 0) {
     fetchData.push(res.data);
