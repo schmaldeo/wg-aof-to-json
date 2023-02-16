@@ -13,7 +13,7 @@ const fetchPlayers = async () => {
     // the fastest way to fetch the data from API is to use Promise.all,
     // however Wargaming API will not let you do it because of DDOS protection,
     // therefore you need to limit the amount of requests for the API not to return corrupted data
-    const limit = pLimit(10);
+    const limit = pLimit(8);
     // get the amount of pages
     const pageRes = await fetch(`https://api.worldoftanks.eu/wot/globalmap/eventaccountratings/?application_id=${appId}&event_id=${eventId}&front_id=${frontId}&fields=rank&limit=100&in_rating=1`).then((e) => e.json());
     const pageCount = pageRes.meta.page_total;
@@ -60,18 +60,18 @@ const fetchPlayers = async () => {
             if (player.account_id) {
                 const accId = player.account_id.toString();
                 for (const e of playersData) {
-                    if (e.data[accId]) {
-                        player.nickname = e.data[accId].nickname;
-                    }
+                    if (!e.data[accId])
+                        continue;
+                    player.nickname = e.data[accId].nickname;
                 }
             }
             if (player.clan_id) {
                 const clanId = player.clan_id.toString();
                 for (const e of clansData) {
-                    if (e.data[clanId]) {
-                        player.clanname = e.data[clanId].name;
-                        player.tag = e.data[clanId].tag;
-                    }
+                    if (!e.data[clanId])
+                        continue;
+                    player.clanname = e.data[clanId].name;
+                    player.tag = e.data[clanId].tag;
                 }
             }
         });
